@@ -15,15 +15,19 @@ colorama.just_fix_windows_console()
 # Add the current directory to the path to allow imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# from api.v1 import events, tickets, users
 from config import get_settings
 from utils.logger import setup_logger
+from database import Base, engine
 
 settings = get_settings()
 
 # Set up logger - Fix: use __name__ as the logger name and logging.INFO as the level
 log_level = logging.DEBUG if settings.debug else logging.INFO
 logger = setup_logger(__name__, log_level)
+
+from routers.users import router as users_router
+from routers.events import router as events_router
+from routers.tickets import router as tickets_router
 
 
 @asynccontextmanager
@@ -34,7 +38,8 @@ async def lifespan(app: FastAPI):
     try:
         # Initialize Database
         logger.info(f"Initializing database connection")
-        # await initialize_database()
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
 
         logger.info("Event Ticketing API started successfully")
     except Exception as e:
@@ -51,6 +56,9 @@ app = FastAPI(
     title=settings.app_name,
     version="1.0.0",
     description="Event Ticketing REST API with automatic ticket expiration and geospatial queries",
+    lifespan=lifespan,
+    docs_url="/docs",
+    redoc_url="/redoc",
 )
 
 # CORS middleware
@@ -63,9 +71,9 @@ app.add_middleware(
 )
 
 # Include routers
-# app.include_router(events.router, prefix="/api/v1")
-# app.include_router(tickets.router, prefix="/api/v1")
-# app.include_router(users.router, prefix="/api/v1")
+app.include_router(events_router, prefix="/api/v1")
+app.include_router(tickets_router, prefix="/api/v1")
+app.include_router(users_router, prefix="/api/v1")
 
 
 # Add request logging middleware

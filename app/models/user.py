@@ -1,4 +1,4 @@
-from sqlalchemy import String, Float
+from sqlalchemy import Column, String, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from geoalchemy2 import Geography
 from database import Base
@@ -21,9 +21,11 @@ class User(Base):
     # Geospatial: Store user's location for personalized event recommendations
     latitude: Mapped[float] = mapped_column(Float, nullable=True)
     longitude: Mapped[float] = mapped_column(Float, nullable=True)
-    location = mapped_column(
-        Geography(geometry_type="POINT", srid=4326), nullable=True, index=True
-    )
+    # location = mapped_column(
+    #     Geography(geometry_type="POINT", srid=4326), nullable=True, index=True
+    # )
+    # for testing:
+    location = Column(String, nullable=True)
 
     # Relationships
     tickets: Mapped[list["Ticket"]] = relationship("Ticket", back_populates="user")

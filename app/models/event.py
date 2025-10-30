@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, DateTime, Float, Composite
+from sqlalchemy import Column, String, Integer, DateTime, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship, composite
 from geoalchemy2 import Geography
 from datetime import datetime
@@ -68,9 +68,11 @@ class Event(Base):
     )
 
     # Geospatial column for efficient location-based queries
-    geo_location = mapped_column(
-        Geography(geometry_type="POINT", srid=4326), nullable=False, index=True
-    )
+    # geo_location = mapped_column(
+    #     Geography(geometry_type="POINT", srid=4326), nullable=False, index=True
+    # )
+    # for testing:
+    geo_location = Column(String, nullable=True)
 
     # Relationships
     tickets: Mapped[list["Ticket"]] = relationship("Ticket", back_populates="event")
