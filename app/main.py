@@ -17,7 +17,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from config import get_settings
 from utils.logger import setup_logger
-from database import Base, engine
+from database import Base, setup_database
 
 settings = get_settings()
 
@@ -38,8 +38,9 @@ async def lifespan(app: FastAPI):
     try:
         # Initialize Database
         logger.info(f"Initializing database connection")
-        async with engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
+        # async with engine.begin() as conn:
+        #     await conn.run_sync(Base.metadata.create_all)
+        await setup_database()
 
         logger.info("Event Ticketing API started successfully")
     except Exception as e:

@@ -40,12 +40,18 @@ async def create_user(user_data: UserCreate, db: AsyncSession = Depends(get_db))
     )
 
     # Set geospatial location if coordinates provided
-    if user_data.latitude is not None and user_data.longitude is not None:
-        user.location = from_shape(
-            Point(user_data.longitude, user_data.latitude), srid=4326
-        )
+    if settings.database_url.startswith("sqlite"):  # for testing
+        user.location = f"{user_data.latitude},{user_data.longitude}"
+    else:
+        if user_data.latitude is not None and user_data.longitude is not None:
+            user.location = from_shape(
+                Point(user_data.longitude, user_data.latitude), srid=4326
+            )
 
     created_user = await user_repo.create(user)
+    db.add(created_user)
+    await db.commit()  # Ensure the commit happens
+    await db.refresh(user)  # refresh to get updated values
     return UserResponse.model_validate(created_user)
 
 

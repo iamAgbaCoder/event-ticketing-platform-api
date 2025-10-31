@@ -4,10 +4,20 @@ from geoalchemy2 import Geography
 from datetime import datetime
 from database import Base
 import uuid
+import os
 from typing import TYPE_CHECKING
+from utils.logger import setup_logger
+from config import get_settings
+
+settings = get_settings()
+logger = setup_logger(__name__)
 
 if TYPE_CHECKING:
     from app.models.ticket import Ticket
+
+
+IS_SQLITE = "sqlite" in settings.database_url
+logger.info(f"USING IS_SQLITE: {IS_SQLITE}")
 
 
 class Venue:
@@ -68,11 +78,13 @@ class Event(Base):
     )
 
     # Geospatial column for efficient location-based queries
-    # geo_location = mapped_column(
-    #     Geography(geometry_type="POINT", srid=4326), nullable=False, index=True
-    # )
-    # for testing:
-    geo_location = Column(String, nullable=True)
+    # Use Geography only in Postgres
+    if not IS_SQLITE:
+        geo_location = mapped_column(
+            Geography(geometry_type="POINT", srid=4326), nullable=True, index=True
+        )
+    else:
+        geo_location = Column(String, nullable=True)  # fallback for SQLite
 
     # Relationships
     tickets: Mapped[list["Ticket"]] = relationship("Ticket", back_populates="event")

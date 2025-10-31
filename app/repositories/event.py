@@ -24,7 +24,8 @@ class EventRepository(BaseRepository[Event]):
         Returns list of tuples: (event, distance_in_km)
         """
         # Create a point from lat/lng
-        user_point = ST_MakePoint(longitude, latitude, type_=text("Geography"))
+        # user_point = ST_MakePoint(longitude, latitude, type_=text("Geography"))
+        user_point = ST_MakePoint(longitude, latitude).ST_SetSRID(4326)
 
         # Calculate distance in meters and convert to km
         distance_expr = ST_Distance(Event.geo_location, user_point) / 1000.0

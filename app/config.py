@@ -7,10 +7,14 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=False)
 
     # Database
-    # database_url: str = "postgresql+asyncpg://postgres:postgres@db:5432/eventdb"
-    database_url: str = Field(..., env="DATABASE_URL")
-    database_url_sync: str = Field(..., env="DATABASE_URL_SYNC")
-    # database_url_sync: str = "postgresql://postgres:postgres@db:5432/eventdb"
+    database_url: str = (
+        "sqlite+aiosqlite:///:memory:"  # Use this for docker - postgresql+asyncpg://postgres:postgres@db:5432/eventdb
+    )
+    # database_url: str = Field(..., env="DATABASE_URL")
+    # database_url_sync: str = Field(..., env="DATABASE_URL_SYNC")
+    database_url_sync: str = (
+        "sqlite:///:memory:"  # Use this for docker - postgresql+asyncpg://postgres:postgres@db:5432/eventdb
+    )
 
     # Redis/Celery
     redis_url: str = "redis://redis:6379/0"
