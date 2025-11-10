@@ -1,5 +1,5 @@
 from celery import Celery
-from config import get_settings
+from app.config import get_settings
 
 settings = get_settings()
 
@@ -7,7 +7,7 @@ celery_app = Celery(
     "event_ticketing",
     broker=settings.celery_broker_url,
     backend=settings.celery_result_backend,
-    include=["workers.tasks"],
+    include=["app.workers.tasks"],
 )
 
 celery_app.conf.update(
@@ -21,7 +21,7 @@ celery_app.conf.update(
     task_soft_time_limit=25 * 60,  # 25 minutes
     beat_schedule={
         "expire-reserved-tickets": {
-            "task": "workers.tasks.expire_reserved_tickets",
+            "task": "app.workers.tasks.expire_reserved_tickets",
             "schedule": 60.0,  # Run every 60 seconds
         },
     },

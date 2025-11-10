@@ -1,7 +1,9 @@
 from app.workers.celery import celery_app
-from app.config import settings
+from app.config import get_settings
 from uuid import UUID
 import asyncio
+
+settings = get_settings()
 
 
 @celery_app.task(name="app.workers.tasks.expire_ticket")

@@ -7,8 +7,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/eventdb
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/eventdb
       - REDIS_URL=redis://redis:6379/0
+
     depends_on:
       - db
       - redis
@@ -19,7 +20,7 @@ services:
       dockerfile: ./Dockerfile.worker
     container_name: event_worker
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/eventdb
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/eventdb
       - REDIS_URL=redis://redis:6379/0
     depends_on:
       - db
