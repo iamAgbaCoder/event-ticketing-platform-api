@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from routers.deps import get_db
-from services.event import EventService
-from services.ticket import TicketService
-from repositories.user import UserRepository
-from models.user import User
-from schemas.user import UserCreate, UserResponse
-from schemas.event import EventListResponse
-from schemas.ticket import TicketWithEventResponse
-from config import get_settings
+from app.routers.deps import get_db
+from app.services.event import EventService
+from app.services.ticket import TicketService
+from app.repositories.user import UserRepository
+from app.models.user import User
+from app.schemas.user import UserCreate, UserResponse
+from app.schemas.event import EventListResponse
+from app.schemas.ticket import TicketWithEventResponse
+from app.config import get_settings
 from geoalchemy2.shape import from_shape
 from shapely.geometry import Point
 from typing import List

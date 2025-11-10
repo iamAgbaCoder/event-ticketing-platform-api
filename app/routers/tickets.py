@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from routers.deps import get_db
-from services.ticket import TicketService
-from schemas.ticket import TicketCreate, TicketResponse, PaymentRequest
+from app.routers.deps import get_db
+from app.services.ticket import TicketService
+from app.schemas.ticket import TicketCreate, TicketResponse, PaymentRequest
 from uuid import UUID
 
 router = APIRouter(prefix="/tickets", tags=["tickets"])

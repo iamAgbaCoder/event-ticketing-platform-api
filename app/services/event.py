@@ -1,6 +1,6 @@
-from repositories.event import EventRepository
-from models.event import Event
-from schemas.event import EventCreate, EventUpdate, EventResponse, EventListResponse
+from app.repositories.event import EventRepository
+from app.models.event import Event
+from app.schemas.event import EventCreate, EventUpdate, EventResponse, EventListResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from geoalchemy2.shape import from_shape
 from shapely.geometry import Point

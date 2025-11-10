@@ -1,7 +1,7 @@
-from repositories.ticket import TicketRepository
-from repositories.event import EventRepository
-from models.ticket import Ticket, TicketStatus
-from schemas.ticket import TicketCreate, TicketResponse, TicketWithEventResponse
+from app.repositories.ticket import TicketRepository
+from app.repositories.event import EventRepository
+from app.models.ticket import Ticket, TicketStatus
+from app.schemas.ticket import TicketCreate, TicketResponse, TicketWithEventResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from uuid import UUID

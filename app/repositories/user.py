@@ -1,5 +1,5 @@
-from repositories.base import BaseRepository
-from models.user import User
+from app.repositories.base import BaseRepository
+from app.models.user import User
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from typing import Optional

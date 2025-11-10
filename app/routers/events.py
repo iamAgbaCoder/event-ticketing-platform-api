@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from routers.deps import get_db
-from services.event import EventService
-from schemas.event import EventCreate, EventResponse, EventListResponse
+from app.routers.deps import get_db
+from app.services.event import EventService
+from app.schemas.event import EventCreate, EventResponse, EventListResponse
 from typing import List
 from uuid import UUID
 

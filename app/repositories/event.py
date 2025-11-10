@@ -1,5 +1,5 @@
-from repositories.base import BaseRepository
-from models.event import Event
+from app.repositories.base import BaseRepository
+from app.models.event import Event
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, text
 from geoalchemy2.functions import ST_DWithin, ST_MakePoint, ST_Distance

@@ -1,6 +1,6 @@
-from schemas.user import UserCreate, UserResponse, UserUpdate
-from schemas.event import EventCreate, EventResponse, EventListResponse, VenueSchema
-from schemas.ticket import TicketCreate, TicketResponse, TicketWithEventResponse
+from app.schemas.user import UserCreate, UserResponse, UserUpdate
+from app.schemas.event import EventCreate, EventResponse, EventListResponse, VenueSchema
+from app.schemas.ticket import TicketCreate, TicketResponse, TicketWithEventResponse
 
 __all__ = [
     "UserCreate",

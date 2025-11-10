@@ -1,5 +1,5 @@
-from repositories.base import BaseRepository
-from models.ticket import Ticket, TicketStatus
+from app.repositories.base import BaseRepository
+from app.models.ticket import Ticket, TicketStatus
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload

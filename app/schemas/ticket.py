@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 from uuid import UUID
-from models.ticket import TicketStatus
+from app.models.ticket import TicketStatus
 from typing import Optional
 
 

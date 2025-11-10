@@ -2,12 +2,12 @@ from sqlalchemy import Column, String, Integer, DateTime, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship, composite
 from geoalchemy2 import Geography
 from datetime import datetime
-from database import Base
+from app.database import Base
 import uuid
 import os
 from typing import TYPE_CHECKING
-from utils.logger import setup_logger
-from config import get_settings
+from app.utils.logger import setup_logger
+from app.config import get_settings
 
 settings = get_settings()
 logger = setup_logger(__name__)
