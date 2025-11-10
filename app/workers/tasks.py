@@ -12,8 +12,8 @@ def expire_ticket(ticket_id: str):
     Expire a specific ticket if it's still in RESERVED status.
     This task is scheduled when a ticket is created.
     """
-    from database import AsyncSessionLocal
-    from services.ticket import TicketService
+    from app.database import AsyncSessionLocal
+    from app.services.ticket import TicketService
 
     async def _expire():
         async with AsyncSessionLocal() as session:
@@ -38,10 +38,10 @@ def expire_reserved_tickets():
     Periodic task to expire all reserved tickets that have exceeded the timeout.
     Runs every minute as a backup to ensure no tickets are stuck in RESERVED state.
     """
-    from database import AsyncSessionLocal
-    from repositories.ticket import TicketRepository
-    from repositories.event import EventRepository
-    from models.ticket import TicketStatus
+    from app.database import AsyncSessionLocal
+    from app.repositories.ticket import TicketRepository
+    from app.repositories.event import EventRepository
+    from app.models.ticket import TicketStatus
 
     async def _expire_batch():
         async with AsyncSessionLocal() as session:
